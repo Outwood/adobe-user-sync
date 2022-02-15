@@ -27,6 +27,7 @@ RUN pip install ./external/okta-0.0.3.1-py2.py3-none-any.whl && \
 RUN make
 
 FROM alpine
-COPY --from=build /opt/app/dist/user-sync /bin/user-sync
-ENTRYPOINT ["/bin/user-sync"]
+COPY --from=build /opt/app/dist/user-sync /opt/app/user-sync
+ENV PATH=/opt/app:$PATH
+ENTRYPOINT ["/opt/app/user-sync"]
 CMD ["--help"]
